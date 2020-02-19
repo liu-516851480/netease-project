@@ -1,15 +1,19 @@
 <template>
-  <div>
-    App
+  <div class="appContainer">
+    <router-view></router-view>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
-export default {
-
-}
+  import Footer from './components/Footer/Footer';
+  export default {
+    components:{
+      Footer
+    }
+  }
 </script>
 
-<style>
-
+<style lang="stylus">
+  
 </style>
