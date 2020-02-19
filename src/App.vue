@@ -1,6 +1,7 @@
 <template>
   <div class="appContainer">
     <router-view></router-view>
+    <div class="kong"></div>
     <Footer></Footer>
   </div>
 </template>
@@ -15,5 +16,6 @@
 </script>
 
 <style lang="stylus">
-  
+  .kong
+    height 100px
 </style>
