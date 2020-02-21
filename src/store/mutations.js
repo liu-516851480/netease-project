@@ -3,7 +3,8 @@ import {
     SAVE_INDEXDATA,
     SAVE_CATEGORYNAV,
     SAVE_CATEGORYCONTENT,
-    SAVE_BUYNAV
+    SAVE_BUYNAV,
+    SAVR_BUYCONTENT
 } from './mutation-types';
 
 export default {
@@ -34,5 +35,9 @@ export default {
 
     [SAVE_BUYNAV](state,buyNav){
         state.buyNav = buyNav
+    },
+
+    [SAVR_BUYCONTENT](state, buyContent){
+        state.buyContent = buyContent
     }
 }

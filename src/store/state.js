@@ -16,6 +16,6 @@ export default {
     shopping:[],
     categoryNav:[],
     categoryContent:[],
-    buyNav:[]
-
+    buyNav:[],
+    buyContent:[]
 }

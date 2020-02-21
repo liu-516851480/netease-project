@@ -1,62 +1,21 @@
 <template>
-    <div class="box">
-        <div class="item">
-            <img  src="banner.jpg" alt="" />
-        </div>
-        <div class="item">
-            <img  src="show.jpg" alt="" />
-        </div>
-        <div class="item">
-            <img  src="cloth.jpg" alt="" />
-        </div>
-        <div class="item">
-            <img  src="banner.jpg" alt="" />
-        </div>
-        <div class="item">
-            <img  src="show.jpg" alt="" />
-        </div>
-        <div class="item">
-            <img  src="cloth.jpg" alt="" />
-        </div>
-        <div class="item">
-            <img  src="banner.jpg" alt="" />
-        </div>
-        <div class="item">
-            <img  src="show.jpg" alt="" />
-        </div>
-        <div class="item">
-            <img  src="cloth.jpg" alt="" />
-        </div>
-        <div class="item">
-            <img  src="show.jpg" alt="" />
-        </div>
-        <div class="item">
-            <img  src="cloth.jpg" alt="" />
-        </div>
-        <div class="item">
-            <img  src="banner.jpg" alt="" />
-        </div>
+    <div>
+        <div class="aa"></div>
+        <div class="kong"></div>
     </div>
 </template>
 
 <script>
-export default {
 
-}
 </script>
 
-<style>
-    .box {
-        display: flex;
-        flex-flow:column wrap;
-        height: 100vh;
-    }
-    .item {
-        margin: 10px;
-        width: calc(100%/3 - 20px);
-    }
-    .item img{
+<style scoped>
+    .aa{
         width: 100%;
-        height:100%;
+        height: 200px;
+        background-color: skyblue;
+    }
+    .kong{
+        height: 110px;
     }
 </style>

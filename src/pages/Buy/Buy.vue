@@ -33,9 +33,13 @@
                 <div class="swiper-pagination"></div>
             </div>
         </div>
-        <div class="content">
-            <img src="./images/test.png" alt="">
+        <div class="content" @getNewData = 'getNewData'>
+            <div class="con">
+                <p v-for="(el,key) in arr" :key="key">{{el}}</p>
+            </div>
+            <BuyContent v-on:getNewData="getNewData" :loadMoreObj="loadMoreObj"></BuyContent>
         </div>
+        <div class="kong"></div>
     </div>
 </template>
 
@@ -43,21 +47,41 @@
     import Swiper from 'swiper'
     import {mapState} from 'vuex'
     import _ from 'lodash'
+    // import ajax from '../../api/ajax'
+    // import $ from 'jquery'
+    import BuyContent from "../../components/BuyContent/BuyContent";
 
     export default {
+        comments:{
+            BuyContent
+        },
 
         data() {
             return {
-                buyNavArr: []
+                buyNavArr: [],
+                buyContentArr: [],
+                arr:[],
+                loadMoreObj:{
+                    url:'/api/getInfo',
+                    pageSize:10,
+                }
             }
         },
+
         // eslint-disable-next-line no-mixed-spaces-and-tabs
         mounted() {
             this.$store.dispatch('getBuyNav')
+            // this.$store.dispatch('getBuyContent')
         },
 
         computed: {
-            ...mapState(['buyNav'])
+            ...mapState(['buyNav','buyContent'])
+        },
+
+        methods:{
+            getNewData(_arr){
+                this.arr=this.arr.concat(_arr);
+            }
         },
 
         watch: {
@@ -75,7 +99,11 @@
                         },
                     })
                 })
-            }
+            },
+            // buyContent(){
+            //     const {buyContent} = this.$store.state
+            //     this.buyContentArr = buyContent
+            // }
         }
     }
 </script>
@@ -96,7 +124,7 @@
             position fixed
             top 0
             left 0
-
+            z-index 99
             .left
                 width 140px
 
@@ -191,4 +219,33 @@
                                     color #666
 
 
+        .content
+            width 100%
+            /*height 600px*/
+            background-color: #fff
+            box-sizing border-box
+            padding 0 20px
+            column-count: 2;
+            /*column-gap: 10px;*/
+            /*.colItem*/
+            .con
+                p
+                    padding: 10px 0;
+                    margin-bottom: 10px;
+                    height: 50px;
+                    background: #f00;
+                    color: #fff;
+            .item
+                /*width 100%*/
+                /*height 200px*/
+                /*height auto*/
+                margin 0 0 20px 0
+                /*margin: 10px;*/
+                width: calc(100% - 10px);
+                img
+                    width 100%
+                    height 100%
+                    border-radius 10px
+        .kong
+            height 100px
 </style>

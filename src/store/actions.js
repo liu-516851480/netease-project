@@ -3,7 +3,8 @@ import {
     SAVE_INDEXDATA,
     SAVE_CATEGORYNAV,
     SAVE_CATEGORYCONTENT,
-    SAVE_BUYNAV
+    SAVE_BUYNAV,
+    SAVR_BUYCONTENT
 } from './mutation-types';
 
 import {
@@ -11,8 +12,10 @@ import {
     reqIndexData,
     reqCategoryNav,
     reqCategoryContent,
-    reqBuyNav
+    reqBuyNav,
+    reqBuyContent
 } from '../api';
+import _ from 'lodash'
 
 export default {
     async getIndexNav({commit}, callback){
@@ -56,6 +59,19 @@ export default {
         if(result.code === '200'){
             const buyNav = result.data
             commit(SAVE_BUYNAV,buyNav)
+        }
+    },
+
+    async getBuyContent({commit}){
+        const result = await reqBuyContent()
+        if(result.code === '200'){
+            const buyContent = result.data.result
+            let a = []
+            a.push(buyContent)
+            console.log(a)
+            let arr = _.flattenDeep(a)
+
+            commit(SAVR_BUYCONTENT,arr)
         }
     }
 }

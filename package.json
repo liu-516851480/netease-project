@@ -11,6 +11,7 @@
     "axios": "^0.19.2",
     "better-scroll": "^2.0.0-beta.4",
     "core-js": "^3.6.4",
+    "jquery": "^3.4.1",
     "lib-flexible": "^0.3.2",
     "lodash": "^4.17.15",
     "postcss-px2rem": "^0.3.0",
@@ -18,6 +19,7 @@
     "stylus-loader": "^3.0.2",
     "swiper": "^5.3.1",
     "vue": "^2.6.11",
+    "vue-infinite-scroll": "^2.0.2",
     "vue-router": "^3.1.5",
     "vuex": "^3.1.2"
   },
