@@ -59,6 +59,6 @@
 			&.active
 				color #DD1A21
 			i
-				font-size 40px 
+				font-size 40px
 				margin-bottom 5px
 </style>

@@ -1,2 +1,5 @@
 export const SAVE_INDEXNAV = 'save_indexnav'
 export const SAVE_INDEXDATA = 'save_indexdata'
+export const SAVE_CATEGORYNAV = 'save_categorynav'
+export const SAVE_CATEGORYCONTENT = 'save_categorycontent'
+export const SAVE_BUYNAV = 'save_buynav'

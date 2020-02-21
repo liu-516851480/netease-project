@@ -38,6 +38,13 @@ module.exports = {
                 },
                 changeOrigin: true
             },
+            '/foo':{
+                target: 'https://m.you.163.com',
+                pathRewrite: {
+                    '^/foo': ''
+                },
+                changeOrigin: true
+            }
         }
     }
 }

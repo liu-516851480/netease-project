@@ -11,5 +11,11 @@ export default {
     floor2:[],
     peopleVIP:[],
     categoryHot:{},
-    limitedTime:[]
+    limitedTime:[],
+    newItemList:[],
+    shopping:[],
+    categoryNav:[],
+    categoryContent:[],
+    buyNav:[]
+
 }

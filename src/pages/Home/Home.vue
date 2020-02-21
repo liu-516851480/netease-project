@@ -85,7 +85,7 @@
                     <span>{{item.categoryName}}</span>
                     <img :src="item.picUrl" alt="">
                 </div>
-                
+
             </div>
         </div>
         <div class="limitedTime">
@@ -126,30 +126,38 @@
                 </div>
             </div>
             <div class="content">
-                <div class="contentItem">
-                    <img src="./images/bg.png" alt="">
-                    <div class="itemTitle">富含免疫球蛋白，纯牛初乳粉 1克*30袋*2罐</div>
+                <div class="contentItem" v-for="(item, index) in newItemList" :key="index">
+                    <img :src="item.showPicUrl" alt="">
+                    <div class="itemTitle">{{item.name}}</div>
                     <div class="price">￥239</div>
                     <div class="category">
-                        <span class="tejia">特价</span>
+                        <span class="tejia" v-for="(i, index) in item.itemTagList" :key="index">{{i.name}}</span>
+                        <!-- <span class="xinpin">{{i.name}}</span>
+                        <span class="shunfengbaoyou">{{i.name}}</span> -->
                     </div>
                 </div>
-                <div class="contentItem">
-
+            </div>
+        </div>
+        <div class="shopping">
+            <div class="item" v-for="(item, index) in shopping" :key="index">
+                <div class="title">
+                    {{item.styleItem.title}}
                 </div>
-                <div class="contentItem">
-
+                <div class="smallTitle">
+                    {{item.styleItem.desc}}
                 </div>
-                <div class="contentItem">
-
-                </div>
-                <div class="contentItem">
-
-                </div>
-                <div class="contentItem">
-
+                <div class="imgList">
+                    <img :src="item" alt="" v-for="(item, index ) in item.styleItem.picUrlList" :key="index">
                 </div>
             </div>
+        </div>
+        <div class="footer">
+            <div class="download">
+                <button>下载APP</button>
+                <button>电脑版</button>
+            </div>
+            <p>网易公司版权所有 © 1997-2020</p>
+            <p>食品经营许可证：JY13301080111719</p>
         </div>
     </div>
 </template>
@@ -158,7 +166,7 @@
     import Swiper from 'swiper'
     import 'swiper/css/swiper.min.css'
     import {mapState} from 'vuex'
-    // const {kingKongModule} = indexData 
+    // const {kingKongModule} = indexData
     export default {
         data(){
             return{
@@ -180,31 +188,33 @@
                         loop: true,
                         autoplay:true,
                         effect : 'fade',
-                    }) 
+                    })
                 })
             })
-            
+
         },
 
         computed:{
-            ...mapState(['indexData','promGood','kingKongList','floorFirst','floor1','floor2','peopleVIP','categoryHot','limitedTime']),
+            ...mapState(['indexData','promGood','kingKongList','floorFirst','floor1','floor2','peopleVIP','categoryHot','limitedTime','newItemList','shopping']),
         },
     }
 </script>
 
-<style lang="stylus">
+
+
+<style lang="stylus" scoped>
     @import '../../common/stylus/mixins.styl';
     .indexContainer
         background-color #eee
-        .swiper-container 
+        .swiper-container
             width 100%
-            height 370px 
+            height 370px
             .swiper-wrapper
                 width 100%
-                height 370px  
+                height 370px
                 .swiper-slide
                     width 100%
-                    height 370px  
+                    height 370px
                     background-color skyblue
                     img
                         width 100%
@@ -233,7 +243,7 @@
                     width 32px
                     height 32px
                     margin-right 8px
-                span 
+                span
                     font-size 16px
         .categoryNav
             width 100%
@@ -241,7 +251,7 @@
             boxsizing border-box
             padding-bottom 32px
             background-color #fff
-            ul 
+            ul
                 width 100%
                 height 372px
                 display flex
@@ -252,12 +262,12 @@
                     margin 10px 20px
                     // background-color pink
                     text-align center
-                    img 
+                    img
                         width 110px
                         height 110px
                         // background-color yellow
                         margin-bottom 10px
-                    span 
+                    span
                         color #333
         .indexBigPromotionModule
             background-color #1674e3
@@ -269,7 +279,7 @@
                 // background-img url('./images/bg.png')
                 // background-size 100% 100%
                 position relative
-                img 
+                img
                     width 100%
                     height 100%
                 .promGood
@@ -304,8 +314,9 @@
                 margin-top 20px
                 margin-bottom 8px
                 img
-                    width 710px 
+                    width 710px
                     height 160px
+                    margin 0 auto
 
             .floor
                 width 750px
@@ -331,7 +342,7 @@
             box-sizing border-box
             margin-bottom 20px
             .title
-                width 100% 
+                width 100%
                 height 90px
                 // background-color red
                 line-height 90px
@@ -339,7 +350,7 @@
                 span
                     font-size 32px
                     position relative
-                    &::after 
+                    &::after
                         content ''
                         display block
                         width 32px
@@ -371,10 +382,10 @@
                     padding 30px 0 0 30px
                     box-sizing border-box
                     position relative
-                    span 
+                    span
                         font-size 32px
                         color #333
-                    img 
+                    img
                         width 258px
                         height 257px
                         position absolute
@@ -398,18 +409,18 @@
                             font-size 32px
                             margin-bottom 10px
                             color #333
-                        .subTitle   
+                        .subTitle
                             color #7F7F7F
                         .tag
                             display block
                             width  120px
                             height 32px
-                            background-color rgba(0,0,0,0.1)  
+                            background-color rgba(0,0,0,0.1)
                             text-align center
                             line-height 32px
                             border-radius 5px
                             color #fff
-                        img 
+                        img
                             position absolute
                             bottom 0
                             right 0
@@ -427,7 +438,7 @@
                 width 100%
                 height 100px
                 // background pink
-                span 
+                span
                     font-size 32px
                     line-height 100px
                     color #333
@@ -436,7 +447,7 @@
                 height 610px
                 display flex
                 flex-wrap wrap
-                
+
                 .contentItem
                     width 165px
                     height 180px
@@ -446,31 +457,27 @@
                     box-sizing border-box
                     padding-top 10px
                     text-align center
-                    // display flex
-                    // justify-content center
-                    span    
+                    span
                         color #333
                         display block
                         margin-bottom 10px
-                    img 
+                    img
                         // margin-top 10px
                         width 120px
                         height 120px
                         margin 0 auto
                     &:nth-child(1)
-                        // background-color blue
                         background-color #F9F3E4
                         width 340px
                         height 200px
                         box-sizing border-box
                         padding 66px 0 0 24px
                         position relative
-                        // padding-top 0
-                        text-align left 
-                        span 
+                        text-align left
+                        span
                             font-size 28px
                             color #333
-                            
+
                             position relative
                             &::after
                                 content:''
@@ -479,15 +486,15 @@
                                 height 4px
                                 background-color #000
                                 position absolute
-                                left 0 
+                                left 0
                                 top 50px
-                        img 
+                        img
                             position absolute
                             top 0
                             right 0
                             width 200px
                             height 200px
-                    
+
                     &:nth-child(2)
                         // width 340px
                         // height 200px
@@ -498,8 +505,8 @@
                         padding 66px 0 0 24px
                         position relative
                         // padding-top 0
-                        text-align left 
-                        span 
+                        text-align left
+                        span
                             font-size 28px
                             color #333
                             position relative
@@ -510,7 +517,7 @@
                                 height 4px
                                 background-color #000
                                 position absolute
-                                left 0 
+                                left 0
                                 top 50pxposition relative
                             &::after
                                 content:''
@@ -519,15 +526,15 @@
                                 height 4px
                                 background-color #000
                                 position absolute
-                                left 0 
+                                left 0
                                 top 50px
-                        img 
+                        img
                             position absolute
                             top 0
                             right 0
                             width 200px
                             height 200px
-                    
+
         .limitedTime
             width 100%
             height 700px
@@ -536,7 +543,7 @@
             box-sizing border-box
             padding 0 30px
             overflow hidden
-            .title 
+            .title
                 width 100%
                 height 100px
                 // background-color pink
@@ -560,10 +567,10 @@
                         border-radius 5px
                 .titleRight
                     display flex
-                    span    
+                    span
                         font-size 28px
                         color #333
-                    i 
+                    i
                         font-size 28px
             .content
                 width 110%
@@ -571,14 +578,14 @@
                 display flex
                 flex-wrap wrap
                 .contentItem
-                    width 216px 
+                    width 216px
                     // background-color skyblue
                     height 270px
-                    margin 0 20px 30px 0    
+                    margin 0 20px 30px 0
                     display flex
                     align-items center
                     flex-direction column
-                    img 
+                    img
                         width 216px
                         height 216px
                         background-color #F5F5F5
@@ -595,12 +602,12 @@
         .newProducts
             width 100%
             height 920px
-            background-color pink
+            background-color #fff
             margin-bottom 20px
             padding 0 30px
             box-sizing border-box
             overflow hidden
-            .title 
+            .title
                 width 100%
                 height 100px
                 // background-color pink
@@ -624,25 +631,111 @@
                         border-radius 5px
                 .titleRight
                     display flex
-                    span    
+                    span
                         font-size 28px
                         color #333
-                    i 
+                    i
                         font-size 28px
             .content
                 width 110%
                 height 820px
-                background-color #f00
+                // background-color #f00
                 display flex
                 flex-wrap wrap
                 .contentItem
                     width 216px
                     height 380px
                     margin 0 20px 13px 0
-                    background-color #eee
+                    // background-color #eee
                     img
                         width 216px
                         height 216px
                         margin-bottom 12px
                         background-color #f5f5f5
+                    .itemTitle
+                        width 100%
+                        height 68px
+                        font-size 24px
+                        line-height 32px
+                        overflow hidden
+                        text-overflow ellipsis
+                        margin-bottom 5px
+                        color #333
+                    // white-space nowrap
+                    // display box // 必须结合的属性，将对象作为弹性伸缩盒子模型展示
+                    // ine-clamp 2 // 需要结合其他属性来使用才有效果
+                    // box-orient vertical // 必须结合的属性，设置子元素(在这里指文字)的排列方式
+                    // overflow hidden
+                    .price
+                        font-size 30px
+                        margin-bottom 10px
+                        color $red
+                    .category
+                        span
+                            font-size 20px
+                            color $red
+                            border 1px solid $red
+                            padding 0 6px
+        .shopping
+            width 100%
+            height 576px
+            background-color: #fff
+            box-sizing border-box
+            padding 10px 30px 30px 30px
+            display flex
+            flex-wrap wrap
+            justify-content space-between
+            margin-bottom 20px
+            .item
+                width 343px
+                height 264px
+                background-color: #F5F5F5
+                border-radius 10px
+                box-sizing border-box
+                padding 20px 0 0 20px
+                .title
+                    width 100%
+                    height 48px
+                    /*background-color: #e0e*/
+                    font-size 32px
+                    line-height 48px
+                    color #333
+                .smallTitle
+                    width 100%
+                    height 36px
+                    /*background-color: #0ff*/
+                    line-height 36px
+                    color #7f7f7f
+                .imgList
+                    width 100%
+                    height 150px
+                    display flex
+                    img
+                        width 150px
+                        height 150px
+        .footer
+            width 100%
+            height 246px
+            background-color: #414141
+            box-sizing border-box
+            padding 54px 20px 28px 20px
+            display flex
+            align-items center
+            flex-direction column
+            .download
+                width 394px
+                height 62px
+                margin-bottom 36px
+                display flex
+                justify-content space-between
+                button
+                    width 172px
+                    height 62px
+                    /*border-radius 10px*/
+                    border 1px solid #999
+                    color #fff
+                    background-color: rgba(0,0,0,0)
+            p
+                color #999
+                margin-bottom 5px
 </style>

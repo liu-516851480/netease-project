@@ -1,6 +1,9 @@
 import {
     SAVE_INDEXNAV,
-    SAVE_INDEXDATA
+    SAVE_INDEXDATA,
+    SAVE_CATEGORYNAV,
+    SAVE_CATEGORYCONTENT,
+    SAVE_BUYNAV
 } from './mutation-types';
 
 export default {
@@ -17,5 +20,19 @@ export default {
         state.peopleVIP = indexData.indexActivityModule
         state.categoryHot = indexData.categoryHotSellModule
         state.limitedTime = indexData.flashSaleModule.itemList
+        state.newItemList = indexData.newItemList.slice(0,6)
+        state.shopping = indexData.sceneLightShoppingGuideModule
+    },
+
+    [SAVE_CATEGORYNAV](state,categoryNav){
+        state.categoryNav = categoryNav
+    },
+
+    [SAVE_CATEGORYCONTENT](state, categoryContent){
+        state.categoryContent = categoryContent
+    },
+
+    [SAVE_BUYNAV](state,buyNav){
+        state.buyNav = buyNav
     }
 }

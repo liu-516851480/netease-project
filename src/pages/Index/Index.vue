@@ -13,17 +13,17 @@
     <div class="nav">
       <div class="scroll-wrapper" v-show="!isBottom" ref="nav">
         <div class="scroll-content">
-          <div class="scroll-item" @click="id = '999'" :class="{active3:id === '999'}">
-            <span>
-              <router-link to="/index/home">
-                推荐
-              </router-link>
-            </span>
+          <div class="scroll-item" @click="id = '999'" :class="{active3:id === '999'}" :id="id">
+          <span>
+            <router-link to="/index/home">
+              推荐
+            </router-link>
+          </span>
           </div>
-          <div class="scroll-item" :class="{active3:id === item.id+''}" v-for="(item, index) in indexNav" @click="toId" :key="index" >
-            <span>
-              <router-link :to="'/index/item/' + item.id">{{item.name}}</router-link>
-            </span>
+          <div class="scroll-item" :class="{active3:id === item.id+''}" v-for="(item, index) in indexNav" @click="toId" :key="index" :id="item.id">
+          <span>
+            <router-link :to="'/index/item/' + item.id">{{item.name}}</router-link>
+          </span>
           </div>
         </div>
       </div>
@@ -33,16 +33,16 @@
         </div>
         <div class="content">
           <div class="scroll-item" @click="id = '999'" :class="{active1:id === '999'}">
-            <span>
-              <router-link to="/index/home">
-                推荐
-              </router-link>
-            </span>
+          <span>
+            <router-link to="/index/home">
+              推荐
+            </router-link>
+          </span>
           </div>
           <div class="scroll-item" :class="{active1:id === item.id+''}" v-for="(item, index) in indexNav" @click="toId" :key="index" >
-            <span>
-              <router-link :to="'/index/item/' + item.id">{{item.name}}</router-link>
-            </span>
+          <span>
+            <router-link :to="'/index/item/' + item.id">{{item.name}}</router-link>
+          </span>
           </div>
         </div>
       </div>
@@ -50,7 +50,9 @@
         <i class="iconfont icon-jiantou" :class="{active2:isBottom}" @click="isBottom = !isBottom"></i>
       </div>
     </div>
+    <div class="kong1"></div>
     <router-view></router-view>
+    <div class="kong"></div>
   </div>
 </template>
 
@@ -67,10 +69,12 @@
     },
 
     mounted(){
-      this.$store.dispatch('getIndexNav')
+      this.$store.dispatch('getIndexNav', () => {
+
+      })
       this.id = this.$route.params.id || '999'
     },
-    
+
     computed:{
       ...mapState(['indexNav'])
     },
@@ -79,19 +83,19 @@
       toId(){
         if(this.$route.params.id){
           this.id = this.$route.params.id
-        } 
-        console.log(this.$route.params.id)
+        }
+        // console.log(this.$route.params.id)
       }
     },
 
-    watch:{ // 
+    watch:{ //
       indexNav(){   // 你state(请求回来的数据)的数据名
         this.$nextTick(() => {  // 一个固定的语法
           if(this.$refs.nav){
             new BScroll('.scroll-wrapper', {
               scrollX: true,
               click:true
-            })  
+            })
           }
         })
       }
@@ -101,15 +105,26 @@
 
 <style lang="stylus">
 @import '../../common/stylus/mixins.styl';
+  /*.Header*/
+  /*  position fixed*/
+  /*  top 0*/
+  /*  left 0*/
+  /*  background-color: #fff*/
+  /*  z-index 999*/
+
   .hearder
     width 100%
     height 88px
-    // background-color skyblue
+    background-color #fff
     padding 16px 30px
     box-sizing border-box
     display flex
     align-items center
-    img 
+    position fixed
+    z-index 99
+    top 0
+    left 0
+    img
       width 138px
       height 40px
       margin-right 20px
@@ -125,7 +140,7 @@
       i
         color #666
         margin-right 10px
-      span 
+      span
         font-size 18px
         color #666
     .btn
@@ -140,8 +155,11 @@
     height 60px
     box-sizing border-box
     padding-right 100px
-    // background-color #eee
-    position relative
+    background-color #fff
+    position fixed
+    top 88px
+    left 0
+    z-index 99
     .drop-down
       position absolute
       top 0
@@ -152,7 +170,7 @@
       z-index 10
       .title
         width 100%
-        height 60px 
+        height 60px
         // background-color yellow
         padding-left 30px
         box-sizing border-box
@@ -180,23 +198,23 @@
             color $red
             border-color $red
             background-color #fff
-            span 
+            span
               color $red
               a
                 color $red
     .btn
       width 100px
       height 60px
-      background-color #f00
+      /*background-color #f00*/
       position absolute
-      top 0 
+      top 0
       right 0
       display flex
       justify-content center
       align-items center
       z-index 11
-      i 
-        transition all 1s
+      i
+        transition all 0.5s
         color #333
         &.active2
           transform rotate(180deg)
@@ -226,12 +244,14 @@
               background-color $red
             span
               color $red
-              a 
+              a
                 color $red
-          span 
+          span
             line-height 56px
             padding 0 16px
             // color #333
             a
               // color #333
+  .kong1
+    height 150px
 </style>

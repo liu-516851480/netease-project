@@ -3,7 +3,7 @@ import qs from 'qs';
 
 const instance = axios.create({
 	// 配置请求路径
-	baseURL: '/api',
+	// baseURL: '/api',
 
 	// 配置超时
 	timeout: 20000
