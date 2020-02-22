@@ -1,76 +1,83 @@
 <template>
-    <div>
-        <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
-<!--            <div class="content">-->
-<!--                <div class="colItem" v-for="(item, index) in data" :key="index">-->
-<!--&lt;!&ndash;                    <div class="item" v-show="item.look">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <img :src="item.look && item.look.picUrl" alt="">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <span>{{item.look && item.look.title}}</span>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
-<!--                    <div class="item" v-for="(i, index) in item.topics" :key="index" >-->
-<!--                        <img :src="i.picUrl" alt="">-->
-<!--                        <span>{{i.title}}</span>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
+    <div id="app">
+        <div class="photos">
+            <div class="item" v-for="(item, index) in photos" :key="index">
+                <img :src="item.picUrl" alt="">
+            </div>
         </div>
     </div>
 </template>
 
 <script>
     import {reqBuyContent} from '../../api'
+    import $ from 'jquery'
     export default {
-        data () {
-            return {
-                count: 0,
-                data: [],
-                busy: false
+        data(){
+            return{
+                photos:[],
+                page:1,
+                size:5
+            }
+
+        },
+        methods:{
+            async req(){
+                let result = await reqBuyContent(this.page, this.size)
+                let arr = result.data.result
+                let newArr = []
+                arr.map((item) => {
+                    if(item.look !== null){
+                        newArr.push(item.look)
+                    }
+                    item.topics.map(i => {
+                        newArr.push(i)
+                    })
+                })
+                if(this.photos.length > 0){
+                    this.photos.push(...newArr)
+                }else {
+                    this.photos = newArr
+                }
+                console.log(this.photos)
+                this.page ++
+            },
+            scroll(){
+                window.onscroll = async () =>{
+                    // console.log("滚动条滚动距离",document.documentElement.scrollTop)
+                    // console.log("窗口可视高度",window.innerHeight)
+                    // console.log("元素的高度",document.documentElement.offsetHeight)
+                    // console.log($('.photos').height())
+                    let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight + 1  >  $('.photos').height()
+                    // console.log("滑动到最底部",bottomOfWindow)
+                    if(bottomOfWindow){//用户下拉触底
+                        this.req()
+                    }
+                }
             }
         },
 
-        methods: {
-            loadMore: async function() {
-                this.busy = true
-                // setTimeout(() => {
-                //     for (var i = 0, j = 50; i < j; i++) {
-                //         this.data.push({name: this.count++ })
-                //     }
-                //     console.log(this.data)
-                //     this.busy = false
-                // }, 1000)
-                let rdata = await reqBuyContent()
-                let newArr = rdata.data.result
-                this.data.push(...newArr)
-                console.log(this.data)
-                this.busy = false
-            }
+        updated(){
+            this.scroll()
         },
 
+        mounted(){
+            this.req()
+            this.scroll()//每次用户下拉触底后再次发送ajax请求获取数据
+        }
     }
+
 </script>
 
-<style lang="stylus">
-    .content
-        width 100%
-        /*height 600px*/
-        background-color: #fff
-        box-sizing border-box
-        padding 0 20px
+<style scoped>
+    .photos{
+        width:100%;
         column-count: 2;
-        /*display: flex;*/
-        /*flex-flow:column wrap;*/
-        /*flex-direction column*/
-        /*flex-wrap wrap*/
-        .item
-            margin 0 0 20px 0
-            /*width: calc(100%/2 - 20px);
-            box-sizing: border-box;
-            break-inside: avoid;
-            /*padding: 10px;*/
-            width 100%
-            img
-                width 100%
-                height 100%
-                border-radius 10px
+        column-gap: 10px;
+    }
+    .photos .item{
 
+    }
+    .photos .item img{
+        width: 100%;
+    }
 </style>

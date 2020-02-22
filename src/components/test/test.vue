@@ -79,7 +79,7 @@
     }
 </script>
 
-<style lang="stylus">
+<style>
     .vue-waterfall{
         overflow-y: auto;
     }
